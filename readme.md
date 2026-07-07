@@ -19,19 +19,34 @@ MLXモデルとHFモデルの間で、多くの場合「重みの数値自体は
 
 📖 使い方
 
-1. マッピングファイルの作成
+### 1. マッピングリスト（対応表）の作成
 
-モデルによって名前の付け替えルールが異なるため、以下の手順で mapping_list.json を作成してください。
+モデルのアーキテクチャによって重み変数名のルールが異なるため、まず以下の手順でマッピング用の JSON ファイルを作成します。
 
+* **HFモデルのキー一覧を抽出 (010_choose_name_from_hf.py)**
+  元となる Hugging Face モデルのディレクトリから、すべての重み名（キー）をリストアップします。
+  ```bash
+  python 010_choose_name_from_hf.py --model /path/to/hf_model_dir --output data/hf_keys.json
+  ```
 
+* **MLXモデルのキー一覧を抽出 (020_choose_name_from_mlx.py)**
+  変換元となる MLX モデルのディレクトリから、すべての重み名をリストアップします。
+  ```bash
+  python 020_choose_name_from_mlx.py --model /path/to/mlx_model_dir_or_file --output data/mlx_keys.json
+  ```
 
-HFモデルのキー一覧を抽出: 元となるHFモデルから全ての重み名（Keys）をリストアップします。
+* **マッチングと対応表の作成 (030_check_name_by_string.py)**
+  抽出した双方のキー一覧を比較し、命名の置換ルールに基づいてマッピング表 `{"mlx_key": "hf_key"}` と、マッチングしなかった未対応キー一覧のファイルを書き出します。
+  ```bash
+  python 030_check_name_by_string.py \
+      --hf-keys data/hf_keys.json \
+      --mlx-keys data/mlx_keys.json \
+      --output-mapped data/mapping_list.json \
+      --output-unmapped data/unmapped_list.json
+  ```
 
-MLXモデルのキー一覧を抽出: 変換後のMLXモデルから全ての重み名をリストアップします。
-
-マッチング: 両者を比較し、{"mlx_key": "hf_key"} の形式で対応表を作成します。
-
-例: "language_model.model.embed_tokens.weight": "model.language_model.embed_tokens.weight"
+> 💡 **参考サンプルデータについて**
+> `data` ディレクトリ内には、本ツールの検証時に `gemma-4-31b-it` を用いて実際に抽出・マッチングしたデータ（`data/gemma4-31b-it-*.txt`）が格納されています。マッピングの動作確認や検証の際の参考にしてください。
 
 
 
