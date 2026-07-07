@@ -1,0 +1,10 @@
+safetensors
+torch
+numpy
+transformers
+accelerate
+pillow
+torchvision
+fastapi
+uvicorn
+requests
