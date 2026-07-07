@@ -1,0 +1,81 @@
+{
+    "config.json": {
+        "only_in_hf": [],
+        "only_in_mlx": [],
+        "value_diffs": {
+            "eos_token_id": {
+                "hf_value": [
+                    1,
+                    106
+                ],
+                "mlx_value": [
+                    1,
+                    106,
+                    50
+                ]
+            }
+        }
+    },
+    "processor_config.json": {
+        "only_in_hf": [
+            "audio_ms_per_token",
+            "feature_extractor",
+            "video_processor"
+        ],
+        "only_in_mlx": [],
+        "value_diffs": {
+            "image_processor": {
+                "hf_value": {
+                    "do_convert_rgb": true,
+                    "do_normalize": false,
+                    "do_rescale": true,
+                    "do_resize": true,
+                    "image_mean": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "image_processor_type": "Gemma4ImageProcessor",
+                    "image_seq_length": 280,
+                    "image_std": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "max_soft_tokens": 280,
+                    "patch_size": 16,
+                    "pooling_kernel_size": 3,
+                    "resample": 3,
+                    "rescale_factor": 0.00392156862745098
+                },
+                "mlx_value": {
+                    "do_convert_rgb": true,
+                    "do_normalize": false,
+                    "do_rescale": true,
+                    "do_resize": true,
+                    "image_mean": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "image_processor_type": "Gemma4ImageProcessor",
+                    "image_seq_length": 280,
+                    "image_std": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "max_soft_tokens": 280,
+                    "patch_size": 16,
+                    "pooling_kernel_size": 3,
+                    "resample": 3,
+                    "rescale_factor": 0.00392156862745098,
+                    "size": {
+                        "height": 224,
+                        "width": 224
+                    }
+                }
+            }
+        }
+    }
+}
